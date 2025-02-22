@@ -1,0 +1,297 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Books API",
+        "description": "API for managing books in the system",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/books": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Retrieve a list of books",
+                "description": "Get a paginated list of books with optional filtering, sorting, and pagination.",
+                "operationId": "9017a3fa89d6636329067c858b27a6fa",
+                "parameters": [
+                    {
+                        "name": "author",
+                        "in": "query",
+                        "description": "Filter books by author",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "published_year",
+                        "in": "query",
+                        "description": "Filter books by published year",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sort books by title or published_year",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "title",
+                                "published_year"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Sorting order (asc for ascending, desc for descending). Default is asc.",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of books retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Book"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "example": {
+                                                "current_page": 1,
+                                                "total": 50,
+                                                "per_page": 10
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object",
+                                            "example": {
+                                                "first": "url",
+                                                "last": "url",
+                                                "prev": null,
+                                                "next": "url"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Create a new book",
+                "operationId": "72f82e1cd6f08112323f87053277ca99",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "author",
+                                    "published_year",
+                                    "isbn"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "The Great Gatsby"
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "F. Scott Fitzgerald"
+                                    },
+                                    "published_year": {
+                                        "type": "integer",
+                                        "example": 1925
+                                    },
+                                    "isbn": {
+                                        "type": "string",
+                                        "example": "9780743273565"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Book created successfully"
+                    }
+                }
+            }
+        },
+        "/api/books/{id}": {
+            "get": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Retrieve a specific book",
+                "operationId": "123856ec83e3466396b979a43eb1a15f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Book details retrieved successfully"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Update a book's details",
+                "operationId": "2fc15aa806ac989f4d2b201b5952714d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "published_year": {
+                                        "type": "integer"
+                                    },
+                                    "isbn": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Books"
+                ],
+                "summary": "Delete a book",
+                "operationId": "eda12c526d0ccacaecea5f3d8f15d6df",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Book ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Book deleted successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book": {
+                "title": "Book",
+                "description": "Book model",
+                "required": [
+                    "id",
+                    "title",
+                    "author",
+                    "published_year",
+                    "isbn"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "The Great Gatsby"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "F. Scott Fitzgerald"
+                    },
+                    "published_year": {
+                        "type": "integer",
+                        "example": 1925
+                    },
+                    "isbn": {
+                        "type": "string",
+                        "example": "978-3-16-148410-0"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Books",
+            "description": "Books"
+        }
+    ]
+}
