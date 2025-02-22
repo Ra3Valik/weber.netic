@@ -24,6 +24,14 @@ class BookFilter
             $query->where( 'published_year', $request->published_year );
         }
 
+        if ( $request->filled( 'published_year_from' ) ) {
+            $query->where( 'published_year', '>=', $request->published_year_from );
+        }
+
+        if ( $request->filled( 'published_year_to' ) ) {
+            $query->where( 'published_year', '<=', $request->published_year_to );
+        }
+
         if ( $request->filled( 'sort_by' ) ) {
             $query->orderBy( $request->sort_by, $request->get( 'order', 'asc' ) );
         }

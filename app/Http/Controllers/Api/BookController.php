@@ -42,6 +42,20 @@ class BookController extends Controller
      *         required=false,
      *         @OA\Schema(type="integer")
      *     ),
+ *          @OA\Parameter(
+     *          name="published_year_from",
+     *          in="query",
+     *          description="Filter books published from this year (inclusive)",
+     *          required=false,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          name="published_year_to",
+     *          in="query",
+     *          description="Filter books published up to this year (inclusive)",
+     *          required=false,
+     *          @OA\Schema(type="integer")
+     *      ),
      *     @OA\Parameter(
      *         name="sort_by",
      *         in="query",

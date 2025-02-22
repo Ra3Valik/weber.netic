@@ -34,6 +34,24 @@
                         }
                     },
                     {
+                        "name": "published_year_from",
+                        "in": "query",
+                        "description": "Filter books published from this year (inclusive)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "published_year_to",
+                        "in": "query",
+                        "description": "Filter books published up to this year (inclusive)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
                         "name": "sort_by",
                         "in": "query",
                         "description": "Sort books by title or published_year",
